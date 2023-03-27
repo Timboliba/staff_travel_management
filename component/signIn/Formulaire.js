@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Logo from './Logo';
+import Logo from '../../Logo';
 
 import { TextInput, View, Text, Button, Image, StyleSheet } from 'react-native';
 

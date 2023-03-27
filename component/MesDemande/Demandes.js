@@ -1,6 +1,6 @@
 import { Text, TextInput, View, Image } from 'react-native';
 
-const MesDemandes = () => {
+const Demandes = () => {
     return <>
         <View name="profil-container">
             <Text>hello mes demandes</Text>
@@ -8,4 +8,4 @@ const MesDemandes = () => {
     </>;
 }
 
-export default MesDemandes;
+export default Demandes;

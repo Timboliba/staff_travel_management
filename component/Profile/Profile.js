@@ -1,6 +1,6 @@
 import { Text, TextInput, View, Image } from 'react-native';
 
-const Profil = () => {
+const Profile = () => {
     return <>
         <View name="profil-container">
             <Text>hello profil</Text>
@@ -8,4 +8,4 @@ const Profil = () => {
     </>;
 }
 
-export default Profil;
+export default Profile;

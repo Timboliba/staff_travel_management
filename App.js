@@ -2,8 +2,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StyleSheet, Text, View, ImageBackground } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Formulaire from './Formulaire';
-import Parametres from './Parametres';
+import Parametres from './component/Parametres/Parametres';
+import Profile from "./component/Profile/Profile";
+
 
 const tab = createBottomTabNavigator();
 
@@ -15,10 +16,10 @@ function Accueil() {
   );
 }
 
-function Profil() {
+function profil() {
   return (
     <View style={styles.page}>
-      <Text>PROFILES</Text>
+      <Profile />
     </View>
   );
 }
@@ -62,9 +63,10 @@ export default function App() {
             return <Ionicons name={iconName} size={27} color='red' />
           }
         })}
+
       >
         <tab.Screen name="HOME" component={Accueil} />
-        <tab.Screen name="PROFILES" component={Profil} />
+        <tab.Screen name="PROFILES" component={profil} />
         <tab.Screen name="MY REQUESTS" component={MesDemandes} />
         <tab.Screen name="SETTINGS" component={Parametre} />
       </tab.Navigator>
