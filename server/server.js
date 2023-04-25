@@ -13,7 +13,7 @@ const dbo = require('./mongodb/conn');
 
 app.listen(port, () => {
 
-    dbo.connectToServer( (err) => {
+    dbo.connectToServer((err) => {
         if (err) console.log(err);
     })
     console.log(`Server listening at port : ${port}`);

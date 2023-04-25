@@ -8,13 +8,7 @@ import Profile from "./component/Profile/Profile";
 import MesDemande from './component/MesDemande/Demandes';
 const tab = createBottomTabNavigator();
 
-function Accueil() {
-  return (
-    <View style={styles.page}>
-      <Text>HOME</Text>
-    </View>
-  );
-}
+
 
 function profil() {
   return (
@@ -29,7 +23,7 @@ function MesDemandes() {
     // <View style={styles.page}>
     //   <Text>MY  REQUESTS</Text>
     // </View>
-<MesDemande/>
+    <MesDemande />
   );
 }
 
@@ -50,9 +44,7 @@ export default function App() {
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
-            if (route.name == "HOME") {
-              iconName = "home"
-            } else if (route.name == "SETTINGS") {
+            if (route.name == "SETTINGS") {
               iconName = "cog-outline"
             }
             else if (route.name == "PROFILES") {
@@ -66,9 +58,8 @@ export default function App() {
         })}
 
       >
-        <tab.Screen name="HOME" component={Accueil} />
-        <tab.Screen name="PROFILES" component={profil} />
         <tab.Screen name="MY REQUESTS" component={MesDemandes} />
+        <tab.Screen name="PROFILES" component={profil} />
         <tab.Screen name="SETTINGS" component={Parametre} />
       </tab.Navigator>
     </NavigationContainer>
