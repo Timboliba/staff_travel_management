@@ -5,7 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Parametres from './component/Parametres/Parametres';
 import Profile from "./component/Profile/Profile";
 
-
+import MesDemande from './component/MesDemande/Demandes';
 const tab = createBottomTabNavigator();
 
 function Accueil() {
@@ -26,9 +26,10 @@ function profil() {
 
 function MesDemandes() {
   return (
-    <View style={styles.page}>
-      <Text>MY  REQUESTS</Text>
-    </View>
+    // <View style={styles.page}>
+    //   <Text>MY  REQUESTS</Text>
+    // </View>
+<MesDemande/>
   );
 }
 
