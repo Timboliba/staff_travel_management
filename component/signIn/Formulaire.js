@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Logo from '../../Logo';
+import Logo from '../Logo/Logo';
 
 import { TextInput, View, Text, Button, Image, StyleSheet } from 'react-native';
 
@@ -20,7 +20,7 @@ const Formulaire = () => {
             <TextInput style={styles1.input} placeholder="Saisir vôtre identifiant" onChangeText={setUsername} />
             <Text style={styles1.texte}>Password:</Text>
             <TextInput style={styles1.input} placeholder="Saisir vôtre identifiant" secureTextEntry={true} onChangeText={setPassword} />
-            <Button title="Connexion" style={{ textDecorationColor: "black", color: "white" }} onPress={handleLogin} />
+            <Text style={styles1.button} onPress={handleLogin}>Connexion</Text>
         </View>
     </>;
 }
@@ -40,8 +40,13 @@ const styles1 = StyleSheet.create({
         marginBottom: 5
     },
     button: {
-        borderWidth: 1,
+        borderWidth: 2,
         borderColor: '#000000',
+        fontSize: "22",
+        borderRadius: 5,
+        padding: 5,
+        marginTop: 15,
+        backgroundColor: "#1a53ff"
     }
 });
 
