@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Logo from '../Logo/Logo';
 
-import { TextInput, View, Text, Button, Image, StyleSheet } from 'react-native';
+import { TextInput, View, Text, Image, StyleSheet } from 'react-native';
 
 
 
@@ -9,17 +9,36 @@ const Formulaire = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
+
     const handleLogin = () => {
-        alert(`Username: ${username}, Password: ${password}`);
+        //alert(`Username: ${username}, Password: ${password}`);
+        var login = { "usesrname": "young", "password": "0000" }
+        if (username == "") {
+            alert("Veullez remplir le champ nom d'utilisateur");
+        } else {
+            if (username != login["usesrname"]) {
+                alert("Nom d'utilisateur incorrect!");
+            } else {
+                if (password == "") {
+                    alert("Veullez remplir le champ mot de passe!");
+                } else {
+                    if (password != login["password"]) {
+                        alert("Mot de passe incorrect!");
+                    }
+                }
+            }
+
+        }
+
     }
 
     return <>
         <Logo />
         <View style={{ backgroundColor: 'teal', width: '100%', alignItems: "center", height: '60%', paddingTop: '10%' }}>
             <Text style={styles1.texte}>User name:</Text>
-            <TextInput style={styles1.input} placeholder="Saisir vôtre identifiant" onChangeText={setUsername} />
+            <TextInput style={styles1.input} placeholder="Saisir vôtre identifiant" onChangeText={setUsername} id="username" />
             <Text style={styles1.texte}>Password:</Text>
-            <TextInput style={styles1.input} placeholder="Saisir vôtre identifiant" secureTextEntry={true} onChangeText={setPassword} />
+            <TextInput style={styles1.input} placeholder="Saisir vôtre identifiant" secureTextEntry={true} onChangeText={setPassword} id="pwd" />
             <Text style={styles1.button} onPress={handleLogin}>Connexion</Text>
         </View>
     </>;

@@ -1,8 +1,9 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { StyleSheet, Text, View, ImageBackground } from "react-native";
+import { StyleSheet, Button, View, ImageBackground } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Parametres from '../Parametres/Parametres';
+import Formulaire from "../signIn/Formulaire";
 import Profile from "../Profile/Profile";
 
 import MesDemande from '../MesDemande/Demandes';
@@ -20,8 +21,12 @@ function profil() {
 
 function MesDemandes() {
     return <>
-
+        <Button
+            title="Add new ASK... again"
+            onPress={() => navigation.push('Authentification')}
+        />
         <MesDemande />
+
     </>;
 }
 
@@ -29,7 +34,15 @@ function Parametre() {
     return (
         <View style={styles.page}>
             <Parametres />
+
         </View>
+    );
+}
+
+function Authentification() {
+    return (
+
+        <Formulaires />
     );
 }
 
@@ -37,6 +50,7 @@ function Parametre() {
 
 export default function User() {
     return <>
+        {/* pour commenter ctrl +':&/' */}
         <NavigationContainer>
             <tab.Navigator
                 screenOptions={({ route }) => ({
@@ -58,6 +72,7 @@ export default function User() {
             >
                 <tab.Screen name="MY REQUESTS" component={MesDemandes} />
                 <tab.Screen name="PROFILES" component={profil} />
+                <tab.Screen name="Authentification" component={Authentification} />
                 <tab.Screen name="SETTINGS" component={Parametre} />
             </tab.Navigator>
         </NavigationContainer>

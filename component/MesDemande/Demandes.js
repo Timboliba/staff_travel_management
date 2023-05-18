@@ -1,16 +1,17 @@
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, ScrollView } from 'react-native';
 import { useEffect, useState } from 'react';
 //import { Pressable, Box, HStack, Badge, Spacer, Flex } from 'react-native';
 import axios from 'axios';
 //import { Button } from 'react-native-paper';
 import Approved from '../ButtonRequest/Approved';
 import Denied from '../ButtonRequest/Denied';
-//import Ask from '../ButtonRequest/Ask';
+import Ask from '../ButtonRequest/Ask';
+import PostRequest from '../MesDemande/PostRequest';
 
 const Demandes = () => {
     const [data, setData] = useState({});
     useEffect(() => {
-        axios.get("http://localhost:5000/data").then((res) => setData({
+        axios.get("https://test-server-l6fk.onrender.com/api").then((res) => setData({
             ...data,
             ...res.data,
         })
@@ -22,16 +23,15 @@ const Demandes = () => {
     console.log(typeof (data));
 
     return <>
-
-        <View name="profil-container">
+        <ScrollView name="profil-container">
 
             {
                 res.map((e) => {
                     return < >
-                        <Image source={require("../../assets/approuve.png")} />
-                        <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: 15 }}>
 
-                            <Text style={{ backgroundColor: "red", width: "90%" }}>
+                        <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: 15, marginTop: 5 }}>
+
+                            <Text style={{ backgroundColor: "red", width: "50%" }} name="request">
                                 {e._id}&nbsp;&nbsp;&nbsp;
                                 {e.name}
                             </Text>
@@ -42,7 +42,7 @@ const Demandes = () => {
                 })
             }
 
-        </View>
+        </ScrollView>
     </>;
 }
 
