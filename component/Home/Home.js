@@ -4,12 +4,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Text, View, Button, ScrollView, StyleSheet } from 'react-native';
 import { useEffect, useState } from 'react';
+import PostRequest from '../MesDemande/PostRequest';
 //import { Pressable, Box, HStack, Badge, Spacer, Flex } from 'react-native';
 import axios from 'axios';
 //import { Button } from 'react-native-paper';
 
 //Composante demandes
-const Demandes = () => {
+const Demandes = ({ navigation }) => {
     //fonction denied
     const Denied = () => {
         alert("Denied request");
@@ -34,7 +35,7 @@ const Demandes = () => {
 
     return <>
         <ScrollView name="profil-container">
-            <Text style={{ fontSize: 25, borderRadius: 1, backgroundColor: "green", width: 30, textAlign: "center", color: "white", marginTop: 2, marginBottom: 5 }}>
+            <Text style={{ fontSize: 25, borderRadius: 1, backgroundColor: "green", width: 30, textAlign: "center", color: "white", marginTop: 5, marginBottom: 5 }} onPress={() => navigation.push('PostRequests')}>
                 +
             </Text>
 
@@ -59,6 +60,13 @@ const Demandes = () => {
     </>;
 }
 
+//Soumission de requete
+const PostRequests = () => {
+    return <>
+        <PostRequest />
+    </>
+}
+
 
 //Composante Profil
 
@@ -74,12 +82,69 @@ const Profile = ({ navigation }) => {
     </>;
 }
 
+const Parametre = () => {
+    const [menuVisible, setMenuVisible] = useState(false);
+    const [langueVisible, setLangueVisible] = useState(false);
+    const toggleMenu = () => {
+        setMenuVisible(!menuVisible);
+    };
+
+    const toggleLangue = () => {
+        setLangueVisible(!langueVisible);
+    };
+
+    return <>
+        <View style={{ height: "100%" }}>
+            <View>
+                <View style={StyleParametre.parametreStyle}>
+                    <Ionicons name="shield-checkmark-outline" size={27} color='red' /><Text style={StyleParametre.textPara} onPress={toggleMenu}>Sécurité</Text>
+                </View>
+                {menuVisible && (
+                    <View style={StyleParametre.menu}>
+                        <Text style={StyleParametre.menuText}>PASSWORD</Text>
+                        <Text style={StyleParametre.menuText}>FACE ID</Text>
+                    </View>)}
+            </View>
+            <View style={StyleParametre.parametreStyle}>
+                <Ionicons name="color-palette-outline" size={27} color='red' /><Text style={StyleParametre.textPara}>Affichage</Text>
+            </View>
+            <View>
+                <View style={StyleParametre.parametreStyle}>
+                    <Ionicons name="language-outline" size={27} color='red' /><Text style={StyleParametre.textPara} onPress={toggleLangue}>Langues</Text>
+                </View>
+                {langueVisible && (
+                    <View style={StyleParametre.langue}>
+                        <Text style={StyleParametre.menuText}>Choix de langue</Text>
+                        <Text style={StyleParametre.menuText}>Merci de choisir la langue vôtre application</Text>
+                        <View style={StyleParametre.parametreStyle}>
+                            <RadioButton value="anglais" style={{ backgroudColor: 'green' }} /><Text style={{ marginRight: 25 }}>English</Text><Text>Drapeau</Text>
+                        </View>
+                        <View style={StyleParametre.parametreStyle}>
+                            <RadioButton value="français" style={{ backgroudColor: 'green' }} /><Text style={{ marginRight: 25 }}>Français</Text><Text>Drapeau</Text>
+                        </View>
+                        <View style={StyleParametre.parametreStyle}>
+                            <RadioButton value="arabe" style={{ backgroudColor: 'green' }} /> <Text style={{ marginRight: 25 }}>Arabes</Text><Text>Drapeau</Text>
+                        </View>
+                        <View style={StyleParametre.parametreStyle}>
+                            <RadioButton value="espagnol" style={{ backgroudColor: 'green' }} /><Text style={{ marginRight: 25 }}>Espagnol</Text><Text>Drapeau</Text>
+                        </View>
+                    </View>)}
+            </View>
+            <View style={StyleParametre.parametreStyle}>
+                <Ionicons name="phone-portrait-outline" size={27} color='red' /><Text style={StyleParametre.textPara}>Appareils</Text>
+            </View>
+        </View>
+    </>;
+}
+
 const Drawer = createNativeStackNavigator()
 export default Home = () => {
     return <>
-        <Drawer.Navigator initialRouteName='Profile'>
+        <Drawer.Navigator initialRouteName='Demandes'>
             <Drawer.Screen name='Demandes' component={Demandes} />
             <Drawer.Screen name='Profile' component={Profile} />
+            <Drawer.Screen name='Parametre' component={Parametre} />
+            <Drawer.Screen name='PostRequests' component={PostRequests} />
         </Drawer.Navigator>
     </>;
 }
@@ -97,5 +162,34 @@ const styleDenied = StyleSheet.create({
         width: 'auto',
         textAlign: "center",
         backgroundColor: "#ff0000"
+    }
+})
+
+
+const StyleParametre = StyleSheet.create({
+    parametreStyle: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingBottom: 25
+    },
+    textPara: {
+        marginLeft: 25
+    },
+    menu: {
+        display: 'flex',
+        alignItems: 'center',
+        fontSize: '22'
+    },
+    langue: {
+        display: 'flex',
+        alignItems: 'center',
+        fontSize: '22'
+    },
+    menuText: {
+        paddingBottom: 20,
+        borderBottomColor: 'red',
+        borderBottomWidth: '2'
+
     }
 })
