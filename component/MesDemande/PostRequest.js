@@ -1,16 +1,49 @@
 import { Text, View, TextInput, StyleSheet, PixelRatio } from 'react-native';
-import Logo from '../Logo/Logo';
+import React, { useState, useEffect } from 'react';
+
+//récuperation du champ motif
+
+
 
 
 const PostRequest = () => {
+    const [motif, setMotif] = useState('');
+    const [destination, setDestination] = useState('');
+    const [departDate, setDepartDate] = useState('');
+    const [dureeSejour, setDureeSejour] = useState('');
+
+    //Fonction de vérification des differentes champs du formulaire
+    const handlerPost = () => {
+        alert("bouton cliquer!");
+
+        if (motif == "") {
+            alert("Veuillez renseigner le motif de votre déplacement");
+        } else {
+            if (destination == "") {
+                alert("Veuillez renseigner vôtre destination");
+            } else {
+                if (departDate == "") {
+                    alert("Veuillez renseigner vôtre date de depart");
+                } else {
+                    if (dureeSejour == "") {
+                        alert("Veuillez renseigner la durée de votre déplacement");
+                    }
+                }
+            }
+
+            alert(motif + " ,à " + destination + " départ prevu pour le " + departDate + "durée du sejour " + dureeSejour + " jours");
+        }
+    }
+
+
     return <>
-        <Logo />
+
         <View style={{ width: '100%', alignItems: "center", height: '70%', paddingTop: '10%' }}>
-            <TextInput style={request.input} name="motif" placeholder='Motif de déplacement' />
-            <TextInput style={request.input} name="destination" placeholder='Lieu de destination' />
-            <TextInput style={request.input} name="date" placeholder='Date de départ :jj/mm/aaaa' />
-            <TextInput style={request.input} name="duree" placeholder='Durée de séjour' />
-            <Text style={request.text} >Submit</Text>
+            <TextInput style={request.inputArea} name="motif" placeholder='Motif de déplacement' multiline numberOfLines={10} onChangeText={setMotif} />
+            <TextInput style={request.input} name="destination" placeholder='Lieu de destination' onChangeText={setDestination} />
+            <TextInput style={request.input} name="date" placeholder='Date de départ :jj/mm/aaaa' onChangeText={setDepartDate} />
+            <TextInput style={request.input} name="duree" placeholder='Durée de séjour' onChangeText={setDureeSejour} />
+            <Text style={request.text} onPress={handlerPost}>Submit</Text>
         </View >
     </>
 }
@@ -32,6 +65,15 @@ const request = StyleSheet.create({
         marginTop: 15,
         backgroundColor: "#1a53ff",
         textAlign: "center"
+    },
+    inputArea: {
+        width: 250,
+        borderWidth: 2,
+        borderRadius: 5,
+        height: 30,
+        marginBottom: 15,
+        backgroundColor: "white",
+        height: 55
     }
 })
 

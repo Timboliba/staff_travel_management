@@ -34,10 +34,11 @@ const Demandes = ({ navigation }) => {
     console.log(typeof (data));
 
     return <>
+        <Text style={{ fontSize: 25, borderRadius: 1, backgroundColor: "green", width: 30, textAlign: "center", color: "white", marginTop: 5, marginBottom: 5 }} onPress={() => navigation.push('PostRequests')}>
+            +
+        </Text>
         <ScrollView name="profil-container">
-            <Text style={{ fontSize: 25, borderRadius: 1, backgroundColor: "green", width: 30, textAlign: "center", color: "white", marginTop: 5, marginBottom: 5 }} onPress={() => navigation.push('PostRequests')}>
-                +
-            </Text>
+
 
             {
                 res.map((e) => {
@@ -138,7 +139,7 @@ const Parametre = () => {
 }
 
 const Drawer = createNativeStackNavigator()
-export default Home = () => {
+const Home = () => {
     return <>
         <Drawer.Navigator initialRouteName='Demandes'>
             <Drawer.Screen name='Demandes' component={Demandes} />
@@ -193,3 +194,5 @@ const StyleParametre = StyleSheet.create({
 
     }
 })
+
+export default Home;

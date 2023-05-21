@@ -19,9 +19,10 @@ const Homes = () => {
 
 const stack = createNativeStackNavigator();
 export default function App() {
+
   return <>
     <NavigationContainer>
-      <stack.Navigator initialRouteName='Homes'>
+      <stack.Navigator initialRouteName={Authentification}>
         <stack.Screen name="Authentification" component={Authentification} />
         <stack.Screen name="Homes" component={Homes} options={{ headerShown: false }} />
       </stack.Navigator>

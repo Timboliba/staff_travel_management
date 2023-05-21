@@ -5,8 +5,7 @@ import axios from 'axios';
 //import { Button } from 'react-native-paper';
 import Approved from '../ButtonRequest/Approved';
 import Denied from '../ButtonRequest/Denied';
-import Ask from '../ButtonRequest/Ask';
-import PostRequest from '../MesDemande/PostRequest';
+
 
 const Demandes = () => {
     const [data, setData] = useState({});
@@ -29,7 +28,7 @@ const Demandes = () => {
                 res.map((e) => {
                     return < >
 
-                        <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: 15, marginTop: 5 }}>
+                        <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around", marginBottom: 15, marginTop: 5 }}>
 
                             <Text style={{ backgroundColor: "red", width: "50%" }} name="request">
                                 {e._id}&nbsp;&nbsp;&nbsp;
