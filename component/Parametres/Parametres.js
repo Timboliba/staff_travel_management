@@ -2,6 +2,7 @@ import { Text, TextInput, View, Image, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { RadioButton } from 'react-native-paper';
+import axios from 'axios';
 
 const Parametres = () => {
     const [menuVisible, setMenuVisible] = useState(false);
@@ -13,6 +14,7 @@ const Parametres = () => {
     const toggleLangue = () => {
         setLangueVisible(!langueVisible);
     };
+
     return <>
         <View style={{ height: "100%" }}>
             <View>

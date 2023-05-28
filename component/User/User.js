@@ -42,13 +42,24 @@ function Parametre() {
 function Authentification() {
     return (
 
-        <Formulaires />
+        <Formulaire />
     );
 }
 
 
 
 export default function User() {
+
+    //fonction denied
+    const Denied = () => {
+        alert("Denied request");
+    }
+
+    //fonction approved
+    const Approved = () => {
+        alert("Approved request")
+    }
+
     return <>
         {/* pour commenter ctrl +':&/' */}
         <NavigationContainer>
@@ -63,7 +74,8 @@ export default function User() {
                             iconName = "person-circle-outline"
                         }
                         else if (route.name == "MY REQUESTS") {
-                            iconName = "albums-outline"
+                            iconName = "albums-outline",
+                                focused = "green"
                         }
                         return <Ionicons name={iconName} size={27} color='red' />
                     }
@@ -72,7 +84,6 @@ export default function User() {
             >
                 <tab.Screen name="MY REQUESTS" component={MesDemandes} />
                 <tab.Screen name="PROFILES" component={profil} />
-                <tab.Screen name="Authentification" component={Authentification} />
                 <tab.Screen name="SETTINGS" component={Parametre} />
             </tab.Navigator>
         </NavigationContainer>
@@ -91,3 +102,5 @@ const styles = StyleSheet.create({
 
 
 });
+
+

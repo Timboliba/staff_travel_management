@@ -1,45 +1,73 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Logo from '../Logo/Logo';
 
 import { TextInput, View, Text, Image, StyleSheet } from 'react-native';
 
 
 
-const Formulaire = () => {
+const Formulaire = (props) => {
+
+
+
+
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [etatAuth, setEtatAuth] = useState(false);
+    const [data, setData] = useState({});
 
+    props.func(etatAuth);
 
+    useEffect(() => {
+        axios.get("https://test-server-l6fk.onrender.com/api/auth").then((res) => setData({
+            ...data,
+            ...res.data,
+        })
+        );
+    }, [])
+
+    let res = Object.values(data);
+    console.log(username)
     const handleLogin = () => {
         //alert(`Username: ${username}, Password: ${password}`);
-        var login = { "usesrname": "young", "password": "0000" }
-        if (username == "") {
-            alert("Veullez remplir le champ nom d'utilisateur");
+        //var login = { "usesrname": "young", "password": "0000" }
+        if (username == "" || password == "") {
+            console.log("Veullez remplir le champ manquant");
+            console.log(etatAuth);
+        } else if (username != res[0].identifiant || password != res[0].password) {
+            console.log("Nom d'utilisateur ou mot de passe incorrect!");
+            console.log(res[0].identifiant + " " + username.toString())
+            console.log(res[0].password + " " + password.toString())
+            console.log(etatAuth);
         } else {
-            if (username != login["usesrname"]) {
-                alert("Nom d'utilisateur incorrect!");
-            } else {
-                if (password == "") {
-                    alert("Veullez remplir le champ mot de passe!");
-                } else {
-                    if (password != login["password"]) {
-                        alert("Mot de passe incorrect!");
-                    }
-                }
-            }
-
+            setEtatAuth(true);
+            console.log(res[0].identifiant)
+            console.log(res[0].password)
+            console.log(res[0].identifiant + " " + res[0].password);
+            console.log(etatAuth);
         }
 
     }
+    const SetUser = (e) => {
+        setUsername(e.target.value);
+    }
+    const SetPwd = (e) => {
+        setPassword(e.target.value);
+    }
+
+
 
     return <>
-        <Logo />
-        <View style={{ backgroundColor: 'teal', width: '100%', alignItems: "center", height: '60%', paddingTop: '10%' }}>
-            <Text style={styles1.texte}>User name:</Text>
-            <TextInput style={styles1.input} placeholder="Saisir vôtre identifiant" onChangeText={setUsername} id="username" />
-            <Text style={styles1.texte}>Password:</Text>
-            <TextInput style={styles1.input} placeholder="Saisir vôtre identifiant" secureTextEntry={true} onChangeText={setPassword} id="pwd" />
-            <Text style={styles1.button} onPress={handleLogin}>Connexion</Text>
+        <View style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+            <Logo />
+            <View style={{ backgroundColor: 'transparent', width: '100%', alignItems: "center", height: '60%', paddingTop: '10%' }}>
+                <Text style={styles1.texte}>User name:</Text>
+                <TextInput style={styles1.input} placeholder="Saisir vôtre identifiant" onChange={SetUser} id="username" />
+                <Text style={styles1.texte}>Password:</Text>
+                <TextInput style={styles1.input} placeholder="Saisir vôtre identifiant" onChange={SetPwd} secureTextEntry={true} id="pwd" />
+                <Text style={styles1.button} onPress={handleLogin}>Connexion</Text>
+            </View>
         </View>
     </>;
 }
@@ -54,7 +82,7 @@ const styles1 = StyleSheet.create({
         backgroundColor: "white"
     },
     texte: {
-        fontSize: 15,
+        fontSize: '15',
         fontWeight: 'bold',
         marginBottom: 5
     },
@@ -65,7 +93,7 @@ const styles1 = StyleSheet.create({
         borderRadius: 5,
         padding: 5,
         marginTop: 15,
-        backgroundColor: "#1a53ff"
+        backgroundColor: "transparant"
     }
 });
 
