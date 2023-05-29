@@ -24,15 +24,14 @@ export default function App() {
   }
 
   return <>
-    {/* {
+    {
       etatAuth ? <NavigationContainer>
         <stack.Navigator initialRouteName={Formulaire}>
           <stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-
-
         </stack.Navigator>
-      </NavigationContainer> : <Formulaire func={dataSet} />} */}
-    <PostRequest />
+      </NavigationContainer> : <Formulaire func={dataSet} />
+    }
+
   </>;
 
 }

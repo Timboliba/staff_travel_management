@@ -8,10 +8,6 @@ import { TextInput, View, Text, Image, StyleSheet } from 'react-native';
 
 const Formulaire = (props) => {
 
-
-
-
-
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [etatAuth, setEtatAuth] = useState(false);
@@ -29,26 +25,50 @@ const Formulaire = (props) => {
 
     let res = Object.values(data);
     console.log(username)
+    /* const handleLogin = () => {
+         //alert(`Username: ${username}, Password: ${password}`);
+         //var login = { "usesrname": "young", "password": "0000" }
+         if (username == "" || password == "") {
+             console.log("Veullez remplir le champ manquant");
+             console.log(etatAuth);
+         } else if (username != res[1].identifiant || password != res[1].password) {
+             console.log("Nom d'utilisateur ou mot de passe incorrect!");
+             console.log(res[1].identifiant + " " + username.toString())
+             console.log(res[1].password + " " + password.toString())
+             console.log(etatAuth);
+         } else {
+             setEtatAuth(true);
+             console.log(res[1].identifiant)
+             console.log(res[1].password)
+             console.log(res[1].identifiant + " " + res[1].password);
+             console.log(etatAuth);
+         }
+ 
+     }*/
     const handleLogin = () => {
-        //alert(`Username: ${username}, Password: ${password}`);
-        //var login = { "usesrname": "young", "password": "0000" }
-        if (username == "" || password == "") {
-            console.log("Veullez remplir le champ manquant");
-            console.log(etatAuth);
-        } else if (username != res[0].identifiant || password != res[0].password) {
-            console.log("Nom d'utilisateur ou mot de passe incorrect!");
-            console.log(res[0].identifiant + " " + username.toString())
-            console.log(res[0].password + " " + password.toString())
+        if (username === "" || password === "") {
+            console.log("Veuillez remplir le champ manquant");
             console.log(etatAuth);
         } else {
-            setEtatAuth(true);
-            console.log(res[0].identifiant)
-            console.log(res[0].password)
-            console.log(res[0].identifiant + " " + res[0].password);
-            console.log(etatAuth);
-        }
+            let isAuthenticated = false;
+            res.forEach((item) => {
+                if (item.identifiant === username && item.password === password) {
+                    isAuthenticated = true;
+                }
+            });
 
+            if (isAuthenticated) {
+                document.cookie = `username=${username}; path=/`;
+                setEtatAuth(true);
+                console.log("Authentification réussie");
+                console.log(etatAuth);
+            } else {
+                console.log("Nom d'utilisateur ou mot de passe incorrect !");
+                console.log(etatAuth);
+            }
+        }
     }
+
     const SetUser = (e) => {
         setUsername(e.target.value);
     }
