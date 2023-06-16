@@ -5,6 +5,7 @@ import Demandes from '../MesDemande/Demandes';
 import Profile from '../Profile/Profile';
 import Parametres from '../Parametres/Parametres';
 import index from './index';
+import Demande from '../MesDemande/Demande';
 
 
 const PostRequests = () => {
@@ -24,6 +25,7 @@ const Home = () => {
             <Drawer.Screen name='Parametres' component={Parametres} />
             <Drawer.Screen name='index' component={index} />
             <Drawer.Screen name='PostRequests' component={PostRequests} />
+            <Drawer.Screen name="DemandeDetails" component={Demande} />
         </Drawer.Navigator>
     </>;
 }

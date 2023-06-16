@@ -32,39 +32,43 @@ const Profile = () => {
     const usernameFromCookie = getCookieValue("username");
 
     return <>
-        <View name="profil-container" style={styles.profil}>
-            <View name="UserName" style={styles.subView}>
-                <Text name="username" style={{ textTransform: 'uppercase' }}>Nom d'utilisateur:</Text>
-                <Text>{usernameFromCookie}</Text>
+        <View style={styles.container}>
+            <View style={styles.field}>
+                <Text style={styles.label}>Nom d'utilisateur:</Text>
+                <Text style={styles.value}>{usernameFromCookie}</Text>
             </View>
-            <View name="Nom" style={styles.subView}>
-                <Text name="username" style={{ textTransform: 'uppercase' }}>Nom:</Text>
-                <Text>{usernameFromCookie}</Text>
+            <View style={styles.field}>
+                <Text style={styles.label}>Nom:</Text>
+                <Text style={styles.value}>{usernameFromCookie.nom}</Text>
             </View>
-            <View name="Prenom" style={styles.subView}>
-                <Text name="username" style={{ textTransform: 'uppercase' }}>Prenom:</Text>
-                <Text>{usernameFromCookie}</Text>
+            <View style={styles.field}>
+                <Text style={styles.label}>Prénom:</Text>
+                <Text style={styles.value}>{usernameFromCookie.prenom}</Text>
             </View>
-            <View name="Téléphone" style={styles.subView}>
-                <Text name="username" style={{ textTransform: 'uppercase' }}>Telephone:</Text>
-                <Text>{usernameFromCookie}</Text>
+            <View style={styles.field}>
+                <Text style={styles.label}>Téléphone:</Text>
+                <Text style={styles.value}>{usernameFromCookie.phone}</Text>
             </View>
         </View>
     </>;
 }
 
 export default Profile;
-
 const styles = StyleSheet.create({
-    subView: {
-        textAlign: 'center',
-    },
-    profil: {
-        display: 'flex',
-        flexDirection: 'column',
+    container: {
+        flex: 1,
+        padding: 20,
+        backgroundColor: '#fff',
         justifyContent: 'space-evenly',
-        height: '100%',
-        borderWidth: 2,
-    }
-
-})
+    },
+    field: {
+        marginBottom: 10,
+    },
+    label: {
+        textTransform: 'uppercase',
+        fontWeight: 'bold',
+    },
+    value: {
+        marginTop: 5,
+    },
+});

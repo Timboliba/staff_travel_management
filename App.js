@@ -4,7 +4,6 @@ import { TextInput, View, Text, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Home from './component/Home/Home';
 import Logo from './component/Logo/Logo';
-
 import Formulaire from './component/signIn/Formulaire';
 import { useState, useEffect } from 'react';
 import PostRequest from './component/MesDemande/PostRequest';
@@ -28,6 +27,7 @@ export default function App() {
       etatAuth ? <NavigationContainer>
         <stack.Navigator initialRouteName={Formulaire}>
           <stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+
         </stack.Navigator>
       </NavigationContainer> : <Formulaire func={dataSet} />
     }
