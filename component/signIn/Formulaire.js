@@ -54,11 +54,12 @@ const Formulaire = (props) => {
             res.forEach((item) => {
                 if (item.identifiant === username && item.password === password) {
                     isAuthenticated = true;
+                    document.cookie = `id=${item._id}; path=/`;
                 }
             });
 
             if (isAuthenticated) {
-                document.cookie = `username=${username}; path=/`;
+
                 setEtatAuth(true);
                 console.log("Authentification réussie");
                 console.log(etatAuth);
@@ -75,8 +76,6 @@ const Formulaire = (props) => {
     const SetPwd = (e) => {
         setPassword(e.target.value);
     }
-
-
 
     return <>
         <View style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>

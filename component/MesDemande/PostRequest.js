@@ -2,52 +2,33 @@ import { Text, View, TextInput, StyleSheet, TouchableOpacity } from 'react-nativ
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import FormData from 'form-data';
-//récuperation du champ motif
-
-
-
 
 const PostRequest = () => {
+
+    // Fonction pour récupérer la valeur d'un cookie par son nom
+    const getCookieValue = (name) => {
+        const cookies = document.cookie.split("; ");
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].split("=");
+            if (cookie[0] === name) {
+                return cookie[1];
+            }
+        }
+        return "";
+    };
+
+    // Récupération du nom d'utilisateur à partir du cookie
+
+    const usernameFromCookie = getCookieValue("id");
+
     const [motif, setMotif] = useState('');
     const [destination, setDestination] = useState('');
     const [departDate, setDepartDate] = useState('');
     const [dureeSejour, setDureeSejour] = useState('');
-    const formData = new FormData();
 
     //Fonction de vérification des differentes champs du formulaire
-    const handlerPost = (e) => {
-        // e.preventDefault();
-        //alert("bouton cliquer!");
+    const handlerPost = async (e) => {
 
-        // if (motif == "") {
-        //     alert("Veuillez renseigner le motif de votre déplacement");
-        // } else {
-        //     if (destination == "") {
-        //         alert("Veuillez renseigner vôtre destination");
-        //     } else {
-        //         if (departDate == "") {
-        //             alert("Veuillez renseigner vôtre date de depart");
-        //         } else {
-        //             if (dureeSejour == "") {
-        //                 alert("Veuillez renseigner la durée de votre déplacement");
-        //             }
-        //         }
-        //     }
-
-
-
-        // }
-        // alert(motif + " ,à " + destination + " départ prevu pour le " + departDate + "durée du sejour " + dureeSejour + " jours");
-        /*  let newdoc = {
-              Motif: motif,
-              Destination: destination,
-              DateDepart: departDate,
-              Duree: dureeSejour,
-          }
-          console.log(JSON.stringify(newdoc));
-          const res = axios.post('https://test-server-l6fk.onrender.com/api', newdoc)*/
-
-        // e.target.reset()
         if (motif === '') {
             alert('Veuillez renseigner le motif de votre déplacement');
             return;
@@ -65,40 +46,32 @@ const PostRequest = () => {
             return;
         }
 
-        const newdoc = {
-            Motif: motif,
-            Destination: destination,
-            DateDepart: departDate,
-            Duree: dureeSejour,
-        };
+        //create a new JSON object to send to the backend
+        const doc = {};
+        doc.motif = motif;
+        doc.depart = departDate;
+        doc.destination = destination;
+        doc.duree = dureeSejour;
+        doc.userId = getCookieValue('id');
+        doc.etat = "no";
 
-        axios.post('https://test-server-l6fk.onrender.com/api', newdoc)
-            .then(response => {
-                console.log('Données envoyées avec succès:', response.data);
-                // Réinitialiser les champs du formulaire si nécessaire
-                setMotif('');
-                setDestination('');
-                setDepartDate('');
-                setDureeSejour('');
+        //display the JSON object to make sure it is correctly binded
+        console.log(JSON.stringify(doc));
+
+        //Url to send it the object (important: use http://)
+        const url = 'http://localhost:8080/api';
+
+        //Using fetch method to send the data to the backend fetch(destination, method)
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(doc),
+            headers: new Headers({
+                'Content-Type': 'application/json',
             })
-            .catch(error => {
-                console.error('Erreur lors de l\'envoi des données:', error);
-                // Traiter l'erreur ou afficher un message d'erreur approprié
-            });
+        }).then(res => res.json()).catch(e => console.log("Error: ", e))
+            .then(res => console.log('Success: ', res));
     }
-    // useEffect(() => {
-    //     // formData.append('motif', motif);
-    //     // formData.append('destination', destination);
-    //     // formData.append('data_depart', departDate);
-    //     // formData.append('duree', dureeSejour);
-    //     const newdoc = {
-    //         Motif: motif,
-    //         Destination: destination,
-    //         DateDepart: departDate,
-    //         Duree: dureeSejour,
-    //     }
-    //     axios.post('https://test-server-l6fk.onrender.com/api', newdoc)
-    // })
+
 
     return <>
 

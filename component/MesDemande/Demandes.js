@@ -13,16 +13,24 @@ const Stack = createNativeStackNavigator();
 
 
 const Demandes = ({ navigation }) => {
-    const [demandes, setDemandes] = useState([]);
-    //fonction denied
-    const Denied = () => {
-        alert("Denied request");
-    }
 
-    //fonction approved
-    const Approved = () => {
-        alert("Approved request")
-    }
+    // Fonction pour récupérer la valeur d'un cookie par son nom
+    const getCookieValue = (name) => {
+        const cookies = document.cookie.split("; ");
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].split("=");
+            if (cookie[0] === name) {
+                return cookie[1];
+            }
+        }
+        return "";
+    };
+
+    // Récupération du nom d'utilisateur à partir du cookie
+    const usernameFromCookie = getCookieValue("id");
+
+
+    const [demandes, setDemandes] = useState([]);
 
     const [data, setData] = useState({});
     useEffect(() => {
@@ -38,7 +46,7 @@ const Demandes = ({ navigation }) => {
     console.log(typeof (data));
     const handleDemandePress = (e) => {
         // Rediriger vers la page de détails de la demande
-        navigation.navigate('DemandeDetails', { Demande });
+        navigation.navigate('DemandeDetails', { id: e._id });
     };
     return <>
         <View name="request">
@@ -48,40 +56,38 @@ const Demandes = ({ navigation }) => {
 
             {
                 res.map((e) => {
-                    return < >
+                    if (e.userId === getCookieValue('id')) {
+                        return < >
 
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                justifyContent: 'space-evenly',
-                                padding: 10,
-                                backgroundColor: '#FFFFFF',
-                                borderBottomWidth: 0.5
-                            }}
-                        >
-                            <Image
-                                source={{ uri: 'https://www.wizishop.fr/media/609e23feede64c2458d7218c/v1/formation-ecommerce-gratuite.webp' }}
+                            <View
                                 style={{
-                                    width: 50,
-                                    height: 50,
-                                    marginRight: 10,
+                                    flexDirection: 'row',
+                                    alignItems: 'center',
+
+                                    padding: 10,
+                                    backgroundColor: '#FFFFFF',
+                                    borderBottomWidth: 0.5
                                 }}
-                            />
-                            <TouchableOpacity onPress={() => handleDemandePress(e)}>
-                                <Text style={{ fontWeight: 'bold', marginBottom: 5 }}>ID: {e._id}</Text>
-                                <Text style={{ fontWeight: 'bold', marginBottom: 5 }}>Destination: {e.destination}</Text>
-                            </TouchableOpacity>
-                            <View style={styles.container}>
-                                <Text style={[styles.text, styles.approvedButton]} onPress={Approved}>
-                                    Approved
-                                </Text>
-                                <Text style={[styles.text, styles.deniedButton]} onPress={Denied}>
-                                    Denied
-                                </Text>
+
+                            >
+                                <Image
+                                    source={require('../../assets/logo.png')}
+                                    style={{
+                                        width: 50,
+                                        height: 50,
+                                        marginRight: 10,
+                                    }}
+
+                                />
+                                <TouchableOpacity onPress={() => handleDemandePress(e)} >
+                                    <Text style={{ fontWeight: 'bold', marginBottom: 5 }}>Destination: {e.destination}</Text>
+                                    <Text style={{ fontWeight: 'bold', marginBottom: 5 }}>Date: {e.date_depart}</Text>
+                                </TouchableOpacity>
+
                             </View>
-                        </View>
-                    </>
+                        </>
+                    }
+
                 })
             }
 
@@ -93,7 +99,7 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        padding: 10,
+        padding: 5,
         backgroundColor: '#FFFFFF',
     },
     text: {
@@ -103,15 +109,14 @@ const styles = StyleSheet.create({
     approvedButton: {
         backgroundColor: 'green',
         color: '#FFFFFF',
-        paddingHorizontal: 10,
+        paddingHorizontal: 5,
         paddingVertical: 5,
         borderRadius: 5,
-        marginRight: 5
     },
     deniedButton: {
         backgroundColor: 'red',
         color: '#FFFFFF',
-        paddingHorizontal: 10,
+        paddingHorizontal: 5,
         paddingVertical: 5,
         borderRadius: 5,
     },
