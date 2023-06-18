@@ -2,13 +2,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StyleSheet } from 'react-native';
 import { Text, View, ScrollView, Button, TouchableOpacity, Image } from 'react-native';
 import { useEffect, useState } from 'react';
-//import { Pressable, Box, HStack, Badge, Spacer, Flex } from 'react-native';
 import axios from 'axios';
-import Demande from './Demande';
-
 
 const Stack = createNativeStackNavigator();
-
 
 const Demandes = ({ navigation }) => {
 
@@ -56,41 +52,6 @@ const Demandes = ({ navigation }) => {
                 res.map((e) => {
                     if (e.userId === getCookieValue('id')) {
                         return < >
-
-                            {/*} <View
-                                style={{
-                                    flexDirection: 'row',
-                                    alignItems: 'center',
-
-                                    padding: 10,
-                                    backgroundColor: '#FFFFFF',
-                                    borderBottomWidth: 0.5
-                                }}
-
-                            >
-                                <Image
-                                    source={require('../../assets/logo.png')}
-                                    style={{
-                                        width: 50,
-                                        height: 50,
-                                        marginRight: 10,
-                                    }}
-
-                                />
-                                <TouchableOpacity onPress={() => handleDemandePress(e)} >
-                                    <Text style={{ fontWeight: 'bold', marginBottom: 5 }}>Destination: {e.destination}</Text>
-                                    <Text style={{ fontWeight: 'bold', marginBottom: 5 }}>Date: {e.date_depart}</Text>
-                                </TouchableOpacity>
-
-                            </View>*/}
-
-
-
-
-
-
-
-
                             <View style={styles.container}>
                                 <View style={styles.row}>
                                     <View style={styles.col}>
@@ -135,33 +96,6 @@ const Demandes = ({ navigation }) => {
     </>;
 }
 
-/*const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        padding: 5,
-        backgroundColor: '#FFFFFF',
-    },
-    text: {
-        fontWeight: 'bold',
-        fontSize: 16,
-    },
-    approvedButton: {
-        backgroundColor: 'green',
-        color: '#FFFFFF',
-        paddingHorizontal: 5,
-        paddingVertical: 5,
-        borderRadius: 5,
-    },
-    deniedButton: {
-        backgroundColor: 'red',
-        color: '#FFFFFF',
-        paddingHorizontal: 5,
-        paddingVertical: 5,
-        borderRadius: 5,
-    },
-});
-*/
 const styles = StyleSheet.create({
     container: {
         flex: 1,

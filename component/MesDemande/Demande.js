@@ -1,7 +1,6 @@
 import { React, useEffect, useState } from 'react';
 import axios from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faHeart, faShare, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
 const Demande = ({ route, navigation }) => {
@@ -37,67 +36,6 @@ const Demande = ({ route, navigation }) => {
     }, [])
 
     return <>
-        {/* <View
-            style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                padding: 10,
-                backgroundColor: '#FFFFFF',
-            }}
-            onPress={() => {
-                // Insérer ici la logique de redirection vers le lien spécifié
-            }}
-        >
-            <Image
-                source={require('../../assets/logo.png')}
-                style={{
-                    width: 50,
-                    height: 50,
-                    marginRight: 10,
-                }}
-            />
-            <View>
-                <Text style={{ fontWeight: 'bold', marginBottom: 5 }}>{data.destination}</Text>
-                <Text>{data.motif}</Text>
-                <Text>{data.date_depart}</Text>
-                <Text>{data.duree} jours</Text>
-                <Text>{data.etat === "yes" ? "Deplacement aprouvé" : "En attente de confirmation"}</Text>
-            </View>
-            <View style={styles.container}>
-                <Text style={[styles.text, styles.approvedButton]} onPress={Approved}>
-                    Approved
-                </Text>
-                <Text style={[styles.text, styles.deniedButton]} onPress={Denied}>
-                    Denied
-                </Text>
-            </View>
-            </View>
-        < TouchableOpacity
-            style={styles.card}
-
-        >
-            <Image
-                source={require('../../assets/logo.png')}
-                style={styles.logo}
-            />
-            <View style={styles.cardText}>
-                <Text style={styles.title}>{data.destination}</Text>
-                <Text style={styles.motif}>{data.motif}</Text>
-                <Text style={styles.date}>{data.date_depart}</Text>
-                <Text style={styles.duree}>{data.duree} jours</Text>
-                <Text style={styles.etat}>
-                    {data.etat === 'yes' ? 'Déplacement approuvé' : 'En attente de confirmation'}
-                </Text>
-            </View>
-            <View style={styles.container}>
-                <Text style={[styles.text, styles.approvedButton]} onPress={Approved}>
-                    Approved
-                </Text>
-                <Text style={[styles.text, styles.deniedButton]} onPress={Denied}>
-                    Denied
-                </Text>
-            </View>
-        </TouchableOpacity >*/}
         <View style={styles.container}>
             <View style={styles.shop}>
                 <View style={styles.row}>
@@ -129,14 +67,14 @@ const Demande = ({ route, navigation }) => {
                                 <View style={styles.productButtons}>
                                     <View style={styles.rowAlign}>
                                         <View style={styles.col8}>
-                                            <TouchableOpacity style={styles.btnPrimary}>
-                                                <Text style={styles.btnText}>Approved</Text>
+                                            <TouchableOpacity
+                                                style={data.etat === "yes" ? styles.btnDisabled : styles.btnPrimary}
+                                                onPress={data.etat === "yes" ? null : Denied}
+                                                disabled={data.etat === "yes"}
+                                            >
+                                                Denied
                                             </TouchableOpacity>
-                                        </View>
-                                        <View style={styles.col8}>
-                                            <TouchableOpacity style={styles.btnPrimary} onPress={Approved}>
-                                                <Text style={styles.btnText} onPress={Denied}>Denied</Text>
-                                            </TouchableOpacity>
+
                                         </View>
                                     </View>
                                 </View>
@@ -148,82 +86,20 @@ const Demande = ({ route, navigation }) => {
         </View>
     </>;
 };
-/*const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        padding: 5,
-        backgroundColor: '#FFFFFF',
-    },
-    text: {
-        fontWeight: 'bold',
-        fontSize: 16,
-    },
-    approvedButton: {
-        backgroundColor: 'green',
-        color: '#FFFFFF',
-        paddingHorizontal: 5,
-        paddingVertical: 5,
-        borderRadius: 5,
-    },
-    deniedButton: {
-        backgroundColor: 'red',
-        color: '#FFFFFF',
-        paddingHorizontal: 5,
-        paddingVertical: 5,
-        borderRadius: 5,
-    },
-});
 
 const styles = StyleSheet.create({
-    card: {
-        flexDirection: 'row',
-        alignItems: 'center',
+    container: {
+        flex: 1,
+
+    },
+
+    btnDisabled: {
+        backgroundColor: '#CCCCCC',
+        opacity: 0.5,
         padding: 10,
-        backgroundColor: '#FFFFFF',
-    },
-    logo: {
-        width: 50,
-        height: 50,
-        marginRight: 10,
-    },
-    cardText: {
-        flex: 1,
-    },
-    title: {
-        fontWeight: 'bold',
-        marginBottom: 5,
-    },
-    motif: {},
-    date: {},
-    duree: {},
-    etat: {},
-    container: {
-        flexDirection: 'row',
-    },
-    text: {
-        padding: 5,
         borderRadius: 5,
-        marginRight: 10,
-        fontSize: 12,
-        fontWeight: 'bold',
-        textAlign: 'center',
-    },
-    approvedButton: {
-        backgroundColor: 'green',
-        color: '#FFFFFF',
-    },
-    deniedButton: {
-        backgroundColor: 'red',
-        color: '#FFFFFF',
-    },
-});*/
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        /*width: '100%',
         alignItems: 'center',
-        height: '100%'*/
+        justifyContent: 'center',
     },
     shop: {
         backgroundColor: '#fff',
@@ -345,7 +221,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingVertical: 10,
         borderRadius: 4,
-        backgroundColor: '#3498db',
+        // backgroundColor: '#3498db',
+        backgroundColor: 'red',
+        fontSize: 16,
+        color: 'white'
     },
     btnText: {
         color: '#fff',

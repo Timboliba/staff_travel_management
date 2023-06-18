@@ -1,12 +1,12 @@
-import { Text, TextInput, View, Image, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { RadioButton } from 'react-native-paper';
-import axios from 'axios';
 
 const Parametres = () => {
     const [menuVisible, setMenuVisible] = useState(false);
     const [langueVisible, setLangueVisible] = useState(false);
+    const [selectedLanguage, setSelectedLanguage] = useState('');
+
     const toggleMenu = () => {
         setMenuVisible(!menuVisible);
     };
@@ -15,78 +15,138 @@ const Parametres = () => {
         setLangueVisible(!langueVisible);
     };
 
-    return <>
-        <View style={{ height: "100%" }}>
-            <View>
-                <View style={StyleParametre.parametreStyle}>
-                    <Ionicons name="shield-checkmark-outline" size={27} color='red' /><Text style={StyleParametre.textPara} onPress={toggleMenu}>Sécurité</Text>
+    const handleLanguageSelection = (language) => {
+        setSelectedLanguage(language);
+    };
+
+    //Confirmation choix de la langue
+    const handlerConfirmLanguage = (language) => {
+        //Changement sur l'ensemble de la structure de l'application 
+        alert("La langue seras changer en : " + language)
+    };
+    return (
+        <ScrollView style={styles.container}>
+            <TouchableOpacity style={styles.optionContainer} onPress={toggleMenu}>
+                <Ionicons name="shield-checkmark-outline" size={27} color="red" />
+                <Text style={styles.optionText}>SECURITE</Text>
+            </TouchableOpacity>
+            {menuVisible && (
+                <View style={{ display: 'flex', alignItems: 'center' }}>
+                    <Text style={styles.menuText}>PASSWORD</Text>
+                    <Text style={styles.menuText}>FACE ID</Text>
                 </View>
-                {menuVisible && (
-                    <View style={StyleParametre.menu}>
-                        <Text style={StyleParametre.menuText}>PASSWORD</Text>
-                        <Text style={StyleParametre.menuText}>FACE ID</Text>
-                    </View>)}
-            </View>
-            <View style={StyleParametre.parametreStyle}>
-                <Ionicons name="color-palette-outline" size={27} color='red' /><Text style={StyleParametre.textPara}>Affichage</Text>
-            </View>
-            <View>
-                <View style={StyleParametre.parametreStyle}>
-                    <Ionicons name="language-outline" size={27} color='red' /><Text style={StyleParametre.textPara} onPress={toggleLangue}>Langues</Text>
+            )}
+
+            <TouchableOpacity style={styles.optionContainer}>
+                <Ionicons name="color-palette-outline" size={27} color="red" />
+                <Text style={styles.optionText}>AFFICHAGE</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.optionContainer} onPress={toggleLangue}>
+                <Ionicons name="language-outline" size={27} color="red" />
+                <Text style={styles.optionText}>LANGUES</Text>
+            </TouchableOpacity>
+            {langueVisible && (
+                <View style={{ display: 'flex', alignItems: 'center' }}>
+                    <TouchableOpacity
+                        style={[styles.languageOption, styles.menuText]}
+                        onPress={() => handleLanguageSelection('français')}
+                    >
+                        <Text style={styles.languageText}>Français</Text>
+                        {selectedLanguage === 'français' && (
+                            <Ionicons name="radio-button-on" size={24} color="green" />
+                        )}
+                        {selectedLanguage !== 'français' && (
+                            <Ionicons name="radio-button-off" size={24} color="gray" />
+                        )}
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={[styles.languageOption, styles.menuText]}
+                        onPress={() => handleLanguageSelection('arabe')}
+                    >
+                        <Text style={styles.languageText}>Arabe</Text>
+                        {selectedLanguage === 'arabe' && (
+                            <Ionicons name="radio-button-on" size={24} color="green" />
+                        )}
+                        {selectedLanguage !== 'arabe' && (
+                            <Ionicons name="radio-button-off" size={24} color="gray" />
+                        )}
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={[styles.languageOption, styles.menuText]}
+                        onPress={() => handleLanguageSelection('anglais')}
+                    >
+                        <Text style={styles.languageText}>Anglais</Text>
+                        {selectedLanguage === 'anglais' && (
+                            <Ionicons name="radio-button-on" size={24} color="green" />
+                        )}
+                        {selectedLanguage !== 'anglais' && (
+                            <Ionicons name="radio-button-off" size={24} color="gray" />
+                        )}
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={[styles.languageOption, styles.menuText]}
+                        onPress={() => handlerConfirmLanguage(selectedLanguage)}
+
+                    >
+                        <Text style={styles.languageText}>Confirmation</Text>
+
+                    </TouchableOpacity>
+
                 </View>
-                {langueVisible && (
-                    <View style={StyleParametre.langue}>
-                        <Text style={StyleParametre.menuText}>Choix de langue</Text>
-                        <Text style={StyleParametre.menuText}>Merci de choisir la langue vôtre application</Text>
-                        <View style={StyleParametre.parametreStyle}>
-                            <RadioButton value="anglais" style={{ backgroudColor: 'green' }} /><Text style={{ marginRight: 25 }}>English</Text><Text>Drapeau</Text>
-                        </View>
-                        <View style={StyleParametre.parametreStyle}>
-                            <RadioButton value="français" style={{ backgroudColor: 'green' }} /><Text style={{ marginRight: 25 }}>Français</Text><Text>Drapeau</Text>
-                        </View>
-                        <View style={StyleParametre.parametreStyle}>
-                            <RadioButton value="arabe" style={{ backgroudColor: 'green' }} /> <Text style={{ marginRight: 25 }}>Arabes</Text><Text>Drapeau</Text>
-                        </View>
-                        <View style={StyleParametre.parametreStyle}>
-                            <RadioButton value="espagnol" style={{ backgroudColor: 'green' }} /><Text style={{ marginRight: 25 }}>Espagnol</Text><Text>Drapeau</Text>
-                        </View>
-                    </View>)}
-            </View>
-            <View style={StyleParametre.parametreStyle}>
-                <Ionicons name="phone-portrait-outline" size={27} color='red' /><Text style={StyleParametre.textPara}>Appareils</Text>
-            </View>
-        </View>
-    </>;
-}
+            )}
 
-export default Parametres;
+            <TouchableOpacity style={styles.optionContainer}>
+                <Ionicons name="phone-portrait-outline" size={27} color="red" />
+                <Text style={styles.optionText}>Log Out</Text>
+            </TouchableOpacity>
+        </ScrollView>
+    );
+};
 
-
-const StyleParametre = StyleSheet.create({
-    parametreStyle: {
-        display: 'flex',
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        paddingTop: 40,
+        paddingHorizontal: 20,
+        height: '99%'
+    },
+    optionContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        paddingBottom: 25
+        paddingBottom: 20,
     },
-    textPara: {
-        marginLeft: 25
+    optionText: {
+        marginLeft: 25,
+        fontSize: 18,
     },
     menu: {
-        display: 'flex',
-        alignItems: 'center',
-        fontSize: 22
-    },
-    langue: {
-        display: 'flex',
-        alignItems: 'center',
-        fontSize: 22
+        paddingTop: 10,
+        borderTopWidth: 1,
+        borderTopColor: '#ccc',
     },
     menuText: {
-        paddingBottom: 20,
+        paddingVertical: 10,
+        borderBottomWidth: 1,
         borderBottomColor: 'red',
-        borderBottomWidth: '2'
+        fontSize: 18,
+    },
+    languageContainer: {
+        marginTop: 16,
+        marginLeft: 16,
+    },
+    languageOption: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 8,
+    },
+    languageText: {
+        marginLeft: 8,
+        fontSize: 16,
+    },
+});
 
-
-    }
-})
+export default Parametres;

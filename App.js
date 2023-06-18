@@ -5,11 +5,6 @@ import Home from './component/Home/Home';
 import Formulaire from './component/signIn/Formulaire';
 import { useState, useEffect } from 'react';
 
-
-
-
-
-
 const stack = createNativeStackNavigator();
 
 export default function App() {

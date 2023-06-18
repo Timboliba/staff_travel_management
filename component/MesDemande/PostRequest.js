@@ -69,7 +69,7 @@ const PostRequest = () => {
                 'Content-Type': 'application/json',
             })
         }).then(res => res.json()).catch(e => console.log("Error: ", e))
-            .then(res => console.log('Success: ', res));
+            .then(res => console.log('Success: ', res), navigation.navigate('Demandes'));
     }
 
 

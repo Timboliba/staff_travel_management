@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Logo from '../Logo/Logo';
 
-import { TextInput, View, Text, Image, StyleSheet } from 'react-native';
+import { TextInput, View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 
 
 
@@ -25,26 +25,7 @@ const Formulaire = (props) => {
 
     let res = Object.values(data);
     console.log(username)
-    /* const handleLogin = () => {
-         //alert(`Username: ${username}, Password: ${password}`);
-         //var login = { "usesrname": "young", "password": "0000" }
-         if (username == "" || password == "") {
-             console.log("Veullez remplir le champ manquant");
-             console.log(etatAuth);
-         } else if (username != res[1].identifiant || password != res[1].password) {
-             console.log("Nom d'utilisateur ou mot de passe incorrect!");
-             console.log(res[1].identifiant + " " + username.toString())
-             console.log(res[1].password + " " + password.toString())
-             console.log(etatAuth);
-         } else {
-             setEtatAuth(true);
-             console.log(res[1].identifiant)
-             console.log(res[1].password)
-             console.log(res[1].identifiant + " " + res[1].password);
-             console.log(etatAuth);
-         }
- 
-     }*/
+    //Fonction de vérification des champs avant envoie des données
     const handleLogin = () => {
         if (username === "" || password === "") {
             console.log("Veuillez remplir le champ manquant");
@@ -78,42 +59,119 @@ const Formulaire = (props) => {
     }
 
     return <>
-        <View style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+        <View style={styles.container}>
             <Logo />
-            <View style={{ backgroundColor: 'transparent', width: '100%', alignItems: "center", height: '60%', paddingTop: '10%' }}>
-                <Text style={styles1.texte}>User name:</Text>
-                <TextInput style={styles1.input} placeholder="Saisir vôtre identifiant" onChange={SetUser} id="username" />
-                <Text style={styles1.texte}>Password:</Text>
-                <TextInput style={styles1.input} placeholder="Saisir vôtre identifiant" onChange={SetPwd} secureTextEntry={true} id="pwd" />
-                <Text style={styles1.button} onPress={handleLogin}>Connexion</Text>
+            <View style={styles.contentContainer}>
+                <Text style={styles.label}>User name:</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Enter your username"
+                    value={username}
+                    onChangeText={setUsername}
+                />
+                <Text style={styles.label}>Password:</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Enter your password"
+                    value={password}
+                    onChangeText={setPassword}
+                    secureTextEntry
+                />
+                <Text style={styles.button} onPress={handleLogin}>Login</Text>
             </View>
         </View>
+
+        {/*Formulaire en entante de d'approbation
+        <View style={{ flex: 1, }}>
+            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                <View style={{ flex: 1, paddingHorizontal: 20, paddingVertical: 40 }}>
+                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                        <View style={{ borderRadius: 10, backgroundColor: 'silver', padding: 20 }}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
+                                <Text style={{ width: '50%', height: '100%', marginRight: 10, }}>
+                                    <Image source={require('../../assets/logo.png')} style={{ width: '100%', height: '100%', resizeMode: 'cover' }} />
+                                </Text>
+                                <Text style={{ fontSize: 24, fontWeight: 'bold' }}>Sign into your account</Text>
+                            </View>
+
+                            <View style={{ marginBottom: 20 }}>
+                                <TextInput
+                                    style={{ backgroundColor: 'white', fontSize: 18, paddingHorizontal: 10, paddingVertical: 8, borderBottomWidth: 1 }}
+                                    placeholder="User name"
+                                    onChange={SetUser}
+                                    id="username"
+                                />
+                            </View>
+
+                            <View style={{ marginBottom: 20 }}>
+                                <TextInput
+                                    style={{ backgroundColor: 'white', fontSize: 18, paddingHorizontal: 10, paddingVertical: 8, borderBottomWidth: 1 }}
+                                    placeholder="Password"
+                                    secureTextEntry
+                                    onChange={SetPwd}
+                                    id="pwd"
+                                />
+                            </View>
+
+                            <TouchableOpacity style={{ marginBottom: 20 }}>
+                                <View style={{ backgroundColor: 'black', borderRadius: 5, paddingVertical: 12 }} >
+                                    <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold', textAlign: 'center' }} onPress={handleLogin}>Login</Text>
+                                </View>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity style={{ marginTop: 20 }}>
+                                <Text style={{ fontSize: 12, color: 'gray', textDecorationLine: 'underline' }}>Terms of use.</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <Text style={{ fontSize: 12, color: 'gray', textDecorationLine: 'underline' }}>Privacy policy</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </ScrollView>
+        </View>*/}
     </>;
 }
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#F3F3F3',
+        alignItems: 'center',
+        justifyContent: 'center',
 
-const styles1 = StyleSheet.create({
-    input: {
-        width: 250,
-        borderWidth: 2,
-        borderRadius: 5,
-        height: 30,
-        marginBottom: 5,
-        backgroundColor: "white"
     },
-    texte: {
-        fontSize: '15',
-        fontWeight: 'bold',
-        marginBottom: 5
+    contentContainer: {
+        backgroundColor: '#F3F3F3',
+        borderRadius: 10,
+        padding: 40,
+        shadowColor: 'black',
+        shadowOpacity: 0.8,
+        shadowRadius: 10,
+        shadowOffset: {
+            width: 0,
+            height: 4,
+        },
+        elevation: 5,
+    },
+    label: {
+        fontSize: 16,
+        marginBottom: 5,
+    },
+    input: {
+        backgroundColor: '#F3F3F3',
+        borderRadius: 10,
+        padding: 12,
+        marginBottom: 10,
+        borderWidth: 1
     },
     button: {
-        borderWidth: 2,
-        borderColor: '#000000',
-        fontSize: "22",
-        borderRadius: 5,
-        padding: 5,
-        marginTop: 15,
-        backgroundColor: "transparant"
-    }
+        backgroundColor: '#FFFFFF',
+        borderRadius: 10,
+        padding: 10,
+        textAlign: 'center',
+        color: '#000000',
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
 });
-
 export default Formulaire;

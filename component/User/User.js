@@ -61,7 +61,6 @@ export default function User() {
     }
 
     return <>
-        {/* pour commenter ctrl +':&/' */}
         <NavigationContainer>
             <tab.Navigator
                 screenOptions={({ route }) => ({
