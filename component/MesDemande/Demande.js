@@ -17,7 +17,10 @@ const Demande = ({ route, navigation }) => {
         axios.delete(url)
             .then(data => console.log(data))
             .catch(e => console.error(e));
-        alert("Deplacement supprimé avec succes")
+        alert("Deplacement supprimé avec succes");
+
+        //La redirection vers la listes des démandes
+        navigation.navigate('index');
     }
 
     //fonction approved
@@ -41,7 +44,7 @@ const Demande = ({ route, navigation }) => {
                 <View style={styles.row}>
                     <View style={styles.col}>
                         <View style={styles.block}>
-                            <Text style={styles.description}>2.8GHz Processor 1TB Storage 16GB DDR</Text>
+
                             <View style={styles.blockBody}>
                                 <Text style={styles.heading}>
                                     <View>

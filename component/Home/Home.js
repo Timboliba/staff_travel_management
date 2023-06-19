@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Button } from 'react-native';
 import PostRequest from '../MesDemande/PostRequest';
 import Demandes from '../MesDemande/Demandes';
 import Profile from '../Profile/Profile';
@@ -81,4 +81,21 @@ const StyleHome = StyleSheet.create({
         flexDirection: 'column',
     }
 })
+
+const styles = StyleSheet.create({
+    logoutButton: {
+        position: 'absolute',
+        bottom: 20,
+        right: 20,
+        backgroundColor: 'transparent',
+        borderWidth: 0,
+        elevation: 0,
+    },
+    logoutButtonText: {
+        color: 'red',
+        fontSize: 16,
+    },
+});
+
+
 export default Home;

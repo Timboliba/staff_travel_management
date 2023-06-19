@@ -44,7 +44,8 @@ const Demandes = ({ navigation }) => {
     };
     return <>
         <View name="request">
-            <Button title='Add Request' onPress={() => navigation.push('PostRequests')} />
+
+            <Button title='Add Request' onPress={() => navigation.navigate('PostRequests')} />
         </View>
         <ScrollView name="profil-container">
 
