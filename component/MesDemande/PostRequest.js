@@ -59,7 +59,7 @@ const PostRequest = () => {
         console.log(JSON.stringify(doc));
 
         //Url to send it the object (important: use http://)
-        const url = 'http://localhost:8080/api';
+        const url = "http://localhost:8080/api";
 
         //Using fetch method to send the data to the backend fetch(destination, method)
         fetch(url, {
@@ -101,7 +101,7 @@ const PostRequest = () => {
                 onChangeText={text => setDureeSejour(text)}
             />
             <TouchableOpacity style={styles.button} onPress={handlerPost}>
-                <Text style={styles.buttonText}>Submit</Text>
+                <Text style={styles.buttonText}>Soumettre</Text>
             </TouchableOpacity>
         </View>
     </>

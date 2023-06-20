@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Logo from '../Logo/Logo';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TextInput, View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 
 
@@ -12,11 +12,12 @@ const Formulaire = (props) => {
     const [password, setPassword] = useState('');
     const [etatAuth, setEtatAuth] = useState(false);
     const [data, setData] = useState({});
+    let isAuthenticated = false;
 
-    props.func(etatAuth);
+
 
     useEffect(() => {
-        axios.get("https://test-server-l6fk.onrender.com/api/auth").then((res) => setData({
+        axios.get(`http://localhost:8080/api/auth`).then((res) => setData({
             ...data,
             ...res.data,
         })
@@ -26,24 +27,24 @@ const Formulaire = (props) => {
     let res = Object.values(data);
     console.log(username)
     //Fonction de vérification des champs avant envoie des données
-    const handleLogin = () => {
+    const handleLogin = async () => {
         if (username === "" || password === "") {
             console.log("Veuillez remplir le champ manquant");
             console.log(etatAuth);
         } else {
-            let isAuthenticated = false;
-            res.forEach((item) => {
+            res.forEach(async (item) => {
                 if (item.identifiant === username && item.password === password) {
                     isAuthenticated = true;
                     document.cookie = `id=${item._id}; path=/`;
+                    await AsyncStorage.setItem('auth', isAuthenticated);
+                    navigation.navigate('Home');
                 }
             });
 
             if (isAuthenticated) {
-
                 setEtatAuth(true);
                 console.log("Authentification réussie");
-                console.log(etatAuth);
+                console.log(AsyncStorage.getItem('auth'));
             } else {
                 console.log("Nom d'utilisateur ou mot de passe incorrect !");
                 console.log(etatAuth);
@@ -80,56 +81,6 @@ const Formulaire = (props) => {
                 <Text style={styles.button} onPress={handleLogin}>Login</Text>
             </View>
         </View>
-
-        {/*Formulaire en entante de d'approbation
-        <View style={{ flex: 1, }}>
-            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-                <View style={{ flex: 1, paddingHorizontal: 20, paddingVertical: 40 }}>
-                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                        <View style={{ borderRadius: 10, backgroundColor: 'silver', padding: 20 }}>
-                            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
-                                <Text style={{ width: '50%', height: '100%', marginRight: 10, }}>
-                                    <Image source={require('../../assets/logo.png')} style={{ width: '100%', height: '100%', resizeMode: 'cover' }} />
-                                </Text>
-                                <Text style={{ fontSize: 24, fontWeight: 'bold' }}>Sign into your account</Text>
-                            </View>
-
-                            <View style={{ marginBottom: 20 }}>
-                                <TextInput
-                                    style={{ backgroundColor: 'white', fontSize: 18, paddingHorizontal: 10, paddingVertical: 8, borderBottomWidth: 1 }}
-                                    placeholder="User name"
-                                    onChange={SetUser}
-                                    id="username"
-                                />
-                            </View>
-
-                            <View style={{ marginBottom: 20 }}>
-                                <TextInput
-                                    style={{ backgroundColor: 'white', fontSize: 18, paddingHorizontal: 10, paddingVertical: 8, borderBottomWidth: 1 }}
-                                    placeholder="Password"
-                                    secureTextEntry
-                                    onChange={SetPwd}
-                                    id="pwd"
-                                />
-                            </View>
-
-                            <TouchableOpacity style={{ marginBottom: 20 }}>
-                                <View style={{ backgroundColor: 'black', borderRadius: 5, paddingVertical: 12 }} >
-                                    <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold', textAlign: 'center' }} onPress={handleLogin}>Login</Text>
-                                </View>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity style={{ marginTop: 20 }}>
-                                <Text style={{ fontSize: 12, color: 'gray', textDecorationLine: 'underline' }}>Terms of use.</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity>
-                                <Text style={{ fontSize: 12, color: 'gray', textDecorationLine: 'underline' }}>Privacy policy</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </View>
-            </ScrollView>
-        </View>*/}
     </>;
 }
 const styles = StyleSheet.create({
@@ -140,36 +91,29 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
 
     },
-    contentContainer: {
-        backgroundColor: '#F3F3F3',
-        borderRadius: 10,
-        padding: 40,
-        shadowColor: 'black',
-        shadowOpacity: 0.8,
-        shadowRadius: 10,
-        shadowOffset: {
-            width: 0,
-            height: 4,
-        },
-        elevation: 5,
-    },
+
     label: {
         fontSize: 16,
         marginBottom: 5,
     },
     input: {
         backgroundColor: '#F3F3F3',
-        borderRadius: 10,
+        //borderRadius: 10,
         padding: 12,
         marginBottom: 10,
-        borderWidth: 1
+        borderLeftWidth: 0,
+        borderTopWidth: 0,
+        borderRightWidth: 0,
+        borderWidth: 1,
+
     },
+
     button: {
-        backgroundColor: '#FFFFFF',
-        borderRadius: 10,
+        backgroundColor: 'blue',
+        //borderRadius: 10,
         padding: 10,
         textAlign: 'center',
-        color: '#000000',
+        color: 'white',
         fontSize: 16,
         fontWeight: 'bold',
     },

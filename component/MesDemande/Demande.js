@@ -20,7 +20,7 @@ const Demande = ({ route, navigation }) => {
         alert("Deplacement supprimé avec succes");
 
         //La redirection vers la listes des démandes
-        navigation.navigate('index');
+        navigation.navigate('Acceuil');
     }
 
     //fonction approved
@@ -93,6 +93,7 @@ const Demande = ({ route, navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        fontFamily: 'Segoe UI'
 
     },
 

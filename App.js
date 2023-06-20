@@ -4,24 +4,34 @@ import { TextInput, View, Text, StyleSheet } from 'react-native';
 import Home from './component/Home/Home';
 import Formulaire from './component/signIn/Formulaire';
 import { useState, useEffect } from 'react';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const stack = createNativeStackNavigator();
 
 export default function App() {
 
 
   const [etatAuth, setEtatAuth] = useState(false);
-  const dataSet = (data) => {
-    setEtatAuth(data)
-  }
+  // const dataSet = (data) => {
+  //   setEtatAuth(data)
+  // }
+
+  useEffect(() => {
+    // State update after rendering is completed
+    const getData = async () => {
+      const auth = await AsyncStorage.getItem('auth');
+      setEtatAuth(auth);
+    }
+    // Navigate to the desired screen or perform any other actions
+    getData();
+  }, []);
 
   return <>
     {
-      etatAuth ? <NavigationContainer>
+      etatAuth ? (<NavigationContainer>
         <stack.Navigator initialRouteName={Formulaire}>
           <stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
         </stack.Navigator>
-      </NavigationContainer> : <Formulaire func={dataSet} />
+      </NavigationContainer>) : (<Formulaire />)
     }
 
   </>;
