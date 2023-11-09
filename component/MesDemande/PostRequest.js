@@ -1,7 +1,7 @@
 import { Text, View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import FormData from 'form-data';
+import fetch from 'node-fetch'
 
 const PostRequest = () => {
 
@@ -17,9 +17,6 @@ const PostRequest = () => {
         return "";
     };
 
-    // Récupération du nom d'utilisateur à partir du cookie
-
-    const usernameFromCookie = getCookieValue("id");
 
     const [motif, setMotif] = useState('');
     const [destination, setDestination] = useState('');
@@ -27,49 +24,59 @@ const PostRequest = () => {
     const [dureeSejour, setDureeSejour] = useState('');
 
     //Fonction de vérification des differentes champs du formulaire
-    const handlerPost = async (e) => {
+    const handlerPost = async () => {
 
         if (motif === '') {
-            alert('Veuillez renseigner le motif de votre déplacement');
+            console.log('Veuillez renseigner le motif de votre déplacement');
             return;
         }
         if (destination === '') {
-            alert('Veuillez renseigner votre destination');
+            console.log('Veuillez renseigner votre destination');
             return;
         }
         if (departDate === '') {
-            alert('Veuillez renseigner votre date de départ');
+            console.log('Veuillez renseigner votre date de départ');
             return;
         }
         if (dureeSejour === '') {
-            alert('Veuillez renseigner la durée de votre déplacement');
+            console.log('Veuillez renseigner la durée de votre déplacement');
             return;
         }
 
         //create a new JSON object to send to the backend
-        const doc = {};
-        doc.motif = motif;
-        doc.depart = departDate;
-        doc.destination = destination;
-        doc.duree = dureeSejour;
-        doc.userId = getCookieValue('id');
-        doc.etat = "no";
-
+         const doc = {
+            motif: motif,
+            depart: departDate,
+            destination: destination,
+            duree: dureeSejour,
+            userId: getCookieValue('id'),
+            etat: "no",
+        };
+        console.log(doc)
         //display the JSON object to make sure it is correctly binded
         console.log(JSON.stringify(doc));
 
         //Url to send it the object (important: use http://)
-        const url = "http://localhost:8080/api";
+        const url = "https://test-server-l6fk.onrender.com/api";
 
         //Using fetch method to send the data to the backend fetch(destination, method)
-        fetch(url, {
+       fetch(url, {
             method: 'POST',
             body: JSON.stringify(doc),
             headers: new Headers({
                 'Content-Type': 'application/json',
             })
-        }).then(res => res.json()).catch(e => console.log("Error: ", e))
-            .then(res => console.log('Success: ', res), navigation.navigate('index'));
+        })/*.then(res => res.json()).catch(e => console.log("Error: ", e))
+            .then(res => console.log('Success: ', res), navigation.navigate('Acceuil'))*/
+            .then(res => res.json())
+        .then(res => {
+            console.log('Success: ', res);
+            navigation.navigate('index');
+        })
+            .catch(e => {
+                console.log("Error: ", e);
+            });
+           
     }
 
 

@@ -17,7 +17,7 @@ const Formulaire = (props) => {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/auth`).then((res) => setData({
+        axios.get(`https://test-server-l6fk.onrender.com/api/auth`).then((res) => setData({
             ...data,
             ...res.data,
         })

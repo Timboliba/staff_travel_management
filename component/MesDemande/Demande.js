@@ -5,8 +5,9 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
 const Demande = ({ route, navigation }) => {
 
-    const id = route.params;
-    const url = `http://localhost:8080/api/${id.id}`;
+    const {id} = route.params;
+    alert(id)
+    const url = `http://localhost:8080/api/:${id.id}`;
     const Denied = () => {
         // fetch(url, {
         //     method: 'DELETE'

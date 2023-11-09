@@ -15,9 +15,6 @@ const Index = ({ navigation }) => {
                                 <View style={styles.cardHeader}>
                                     <Text style={styles.cardTitle}><Text>Mes déplacements</Text><Ionicons name="chevron-forward-sharp" size={27} color="black" /></Text>
                                 </View>
-
-
-
                             </View>
                         </View>
                     </View>

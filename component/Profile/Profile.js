@@ -28,7 +28,7 @@ const Profile = () => {
     const [data, setData] = useState({});
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/auth/${usernameFromCookie}`).then((res) => setData({
+        axios.get(`https://test-server-l6fk.onrender.com/api/auth/${usernameFromCookie}`).then((res) => setData({
             ...data,
             ...res.data,
         })
