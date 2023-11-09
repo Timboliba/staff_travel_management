@@ -29,7 +29,7 @@ const Demandes = ({ navigation }) => {
 
     const [data, setData] = useState({});
     useEffect(() => {
-        axios.get("http://localhost:8080/api").then((res) => setData({
+        axios.get("https://test-server-l6fk.onrender.com/api").then((res) => setData({
             ...data,
             ...res.data,
         })
@@ -55,9 +55,6 @@ const Demandes = ({ navigation }) => {
                                 <View style={style1.cardHeader}>
                                     <Text style={style1.cardTitle}>Ajouter une demande <Ionicons name="chevron-forward-sharp" size={27} color="white" /></Text>
                                 </View>
-
-
-
                             </View>
                         </View>
                     </View>

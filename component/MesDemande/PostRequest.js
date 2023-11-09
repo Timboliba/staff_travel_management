@@ -2,6 +2,7 @@ import { Text, View, TextInput, StyleSheet, TouchableOpacity } from 'react-nativ
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import FormData from 'form-data';
+import fetch from 'node-fetch'
 
 const PostRequest = () => {
 
@@ -59,7 +60,7 @@ const PostRequest = () => {
         console.log(JSON.stringify(doc));
 
         //Url to send it the object (important: use http://)
-        const url = "http://localhost:8080/api";
+        const url = "https://test-server-l6fk.onrender.com/api";
 
         //Using fetch method to send the data to the backend fetch(destination, method)
         fetch(url, {
